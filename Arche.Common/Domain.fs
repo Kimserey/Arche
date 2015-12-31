@@ -14,10 +14,8 @@ module Domain =
         Route: Route
         Content: Doc
     } 
-    and DisplayOption = 
-        | PageWithNav of string
-        | FullPage
-    and AccessOption = Navmenu | Other
+    and DisplayOption = PageWithNav | FullPage
+    and AccessOption = Navmenu  of string | Other
     and Route = Route of string list
         with 
             static member Create (path: string list) = 
