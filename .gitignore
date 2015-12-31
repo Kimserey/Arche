@@ -2,3 +2,5 @@ packages/*
 Arche.Site/bin/*
 Arche.Site/obj/*
 Arche.Site/Scripts/*
+Arche.Common/bin/*
+Arche.Common/obj/*

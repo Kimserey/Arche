@@ -70,9 +70,6 @@
     <Error Condition="!Exists('..\packages\WebSharper.3.6.2.220\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.3.6.2.220\build\WebSharper.targets'))" />
   </Target>
   <ItemGroup>
-    <Compile Include="Common.Domain.fs" />
-    <Compile Include="Common.Bootstrap.fs" />
-    <Compile Include="Common.Location.fs" />
     <Compile Include="Modules.Weather.fs" />
     <Compile Include="Modules.Location.fs" />
     <Compile Include="Modules.Username.fs" />
@@ -202,5 +199,12 @@
       <HintPath>..\packages\WebSharper.3.6.2.220\lib\net40\WebSharper.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Arche.Common\Arche.Common.fsproj">
+      <Name>Arche.Common</Name>
+      <Project>{e9b77a1a-bf50-4fbb-aba0-bf20a9be2d78}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
 </Project>
