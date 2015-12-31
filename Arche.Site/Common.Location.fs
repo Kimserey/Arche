@@ -1,5 +1,5 @@
 ﻿namespace Arche.Common
 
 module Location =
-	let x = ""
+    let x = ""
 
