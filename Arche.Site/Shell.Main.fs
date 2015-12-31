@@ -24,7 +24,7 @@ module Main =
                     | AccessOption.Other      -> None)
 
             curr.Content 
-            |> Menu.Static.embed routes
+            |> Menu.Static.embed (ctx.Link "Home") curr.Title routes
 
     let mkPage page =
         Sitelet.Content

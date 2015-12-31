@@ -10,7 +10,7 @@ module Weather  =
     module private Client =
         open WebSharper.UI.Next.Client
 
-        let page() = text "Hello world"
+        let page() = text "Weather"
 
     module Static =
 

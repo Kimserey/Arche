@@ -11,14 +11,16 @@ module Menu =
     module private Client =
         open WebSharper.JavaScript
 
-        let brand() =
-            divAttr [ attr.``class`` "navbar-brand"; on.click (fun _ _ -> JS.Window.Location.Replace(JS.Window.Location.Host)) ] [ text "Arche" ]
+        let brand homeLink =
+            divAttr [ attr.``class`` "navbar-brand"
+                      attr.style "cursor: pointer;"
+                      on.click (fun _ _ -> JS.Window.Location.Replace(homeLink)) ] [ text "Arche" ]
             
 
     module Static =
         open WebSharper.Sitelets
         
-        let private nav routes =
+        let private nav homeLink curr routes =
             
             let navBar left right = 
                 let navHeader = 
@@ -31,7 +33,7 @@ module Menu =
                                            spanAttr [ attr.``class`` "icon-bar" ] []
                                            spanAttr [ attr.``class`` "icon-bar" ] []
                                            spanAttr [ attr.``class`` "icon-bar" ] [] ] 
-                              client <@ Client.brand() @>]
+                              client <@ Client.brand homeLink @>]
 
                 let navMenu = 
                     divAttr [ attr.``class`` "collapse navbar-collapse"; attr.id "menu" ] [ left; right ]
@@ -40,14 +42,19 @@ module Menu =
 
             let navButtons = 
                 let liList = 
-                    routes |> List.map (fun (title, route) -> li [ aAttr [ attr.href route ] [text title] ]) |> Seq.cast |> Seq.toList
+                    routes 
+                    |> List.map (fun (title, route) -> 
+                        liAttr [ if curr = title then yield attr.``class`` "active" ] 
+                               [ aAttr [ attr.href route ] [text title] ]) 
+                    |> Seq.cast 
+                    |> Seq.toList
                         
                 ulAttr [attr.``class`` "nav navbar-nav"] liList
 
             navBar navButtons Doc.Empty
 
-        let embed routes doc =
-            [ nav routes :> Doc
+        let embed homeLink currRoute routes doc =
+            [ nav homeLink currRoute routes :> Doc
               divAttr [ attr.``class`` "container-fluid" ] [ doc ] :> Doc
             ] |> Doc.Concat
             
