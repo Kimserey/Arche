@@ -4,7 +4,22 @@ open WebSharper.Html.Server
 open WebSharper
 open WebSharper.Sitelets
 
-module SelfHostedServer =
+module Resources =
+    open WebSharper.Resources
+
+    module Bootstrap =
+        
+        type Css() =
+            inherit BaseResource("https://bootswatch.com/paper/bootstrap.min.css")
+
+        type Js() =
+            inherit BaseResource("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
+
+    [<assembly:Require(typeof<Bootstrap.Css>);
+      assembly:Require(typeof<Bootstrap.Js>)>]
+    do()
+
+module Site =
 
     open global.Owin
     open Microsoft.Owin.Hosting

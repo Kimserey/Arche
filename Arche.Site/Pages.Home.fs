@@ -1,5 +1,8 @@
 ﻿namespace Arche.Pages
 
+open WebSharper
+
 module Home  =
-    let x = ""
+
+    let page = ""
 
