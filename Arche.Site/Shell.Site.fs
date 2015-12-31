@@ -10,7 +10,7 @@ module Resources =
     module Bootstrap =
         
         type Css() =
-            inherit BaseResource("https://bootswatch.com/paper/bootstrap.min.css")
+            inherit BaseResource("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
 
         type Js() =
             inherit BaseResource("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")

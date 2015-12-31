@@ -62,6 +62,13 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="..\packages\WebSharper.3.6.6.225\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.3.6.6.225\build\WebSharper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WebSharper.3.6.6.225\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.3.6.6.225\build\WebSharper.targets'))" />
+  </Target>
   <ItemGroup>
     <Compile Include="Modules.Weather.fs" />
     <Compile Include="Modules.Location.fs" />
@@ -69,6 +76,7 @@
     <Compile Include="Webparts.WeatherLocation.fs" />
     <Compile Include="Webparts.Profile.fs" />
     <Compile Include="Pages.Home.fs" />
+    <Compile Include="Pages.Weather.fs" />
     <Compile Include="Pages.fs" />
     <Compile Include="Shell.Menu.fs" />
     <Compile Include="Shell.Main.fs" />
@@ -200,19 +208,10 @@
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Arche.Common\Arche.Common.fsproj">
       <Name>Arche.Common</Name>
       <Project>{e9b77a1a-bf50-4fbb-aba0-bf20a9be2d78}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\packages\WebSharper.3.6.6.225\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.3.6.6.225\build\WebSharper.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WebSharper.3.6.6.225\build\WebSharper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WebSharper.3.6.6.225\build\WebSharper.targets'))" />
-  </Target>
 </Project>

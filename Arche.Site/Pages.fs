@@ -10,6 +10,11 @@ module All =
         { Title   = "Home"
           Route   = Route.Create [ "" ]
           Content = Home.Static.html() 
-          DisplayOption = DisplayOption.PageWithNav
+          DisplayOption = DisplayOption.PageWithMenu
           AccessOption  = AccessOption.Other }
+        { Title   = "Weather"
+          Route   = Route.Create [ "weather" ]
+          Content = Weather.Static.html()
+          DisplayOption = DisplayOption.PageWithMenu
+          AccessOption  = AccessOption.Menu "Weather" }
     ]
