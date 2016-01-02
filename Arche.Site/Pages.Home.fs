@@ -12,9 +12,9 @@ module Home  =
 
         let page() = divAttr [ attr.``class`` "jumbotron" ] 
                              [ h1 [ text "Hi "; iAttr [ attr.``class`` "fa fa-smile-o" ] []; text "," ]
-                               p  [ text "Arche is a simple app built in F# with WebSharper to demonstrate one way to structure a web app."
+                               p  [ text "Arche is a simple app to demonstrate one way to build a web app in F# with WebSharper."
                                     br []
-                                    text "This web app is explained in details on my blog post "; aAttr [ attr.href "#" ] [ text "link" ]; text "."
+                                    text "The structure is explained in details on my blog post "; aAttr [ attr.href "#" ] [ text "link" ]; text "."
                                     br [] 
                                     text "The code can be found on "; aAttr [ attr.href "https://github.com/Kimserey/Arche" ] [ text "on github" ]; text "." ]
                                p  [ text "Get in touch on twitter "
