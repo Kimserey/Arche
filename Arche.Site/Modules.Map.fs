@@ -30,11 +30,12 @@ module Map =
         let geocode city =
             async {
                 let! geocode = GeocoderJson.AsyncLoad(sprintf "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" city Config.value.GoogleMap.ApiKey)
-                return geocode.Results 
-                       |> Array.tryHead 
-                       |> Option.map (fun head -> 
-                            { Lng = head.Geometry.Location.Lng
-                              Lat = head.Geometry.Location.Lat })
+                
+                return match geocode.Status, geocode.Results |> Array.toList with
+                       | status, head::t when status = "OK" -> 
+                            Some { Lng = head.Geometry.Location.Lng
+                                   Lat = head.Geometry.Location.Lat }
+                       | _ -> None
             }
 
     module Resource =
@@ -51,11 +52,28 @@ module Map =
         open WebSharper.UI.Next
         open WebSharper.UI.Next.Html
         open WebSharper.UI.Next.Client
-        
+        open WebSharper.JavaScript
+
+        module GoogleMap =
+            
+            [<Direct(""" 
+                var mapOptions = { center: new google.maps.LatLng(47.4968222, 19.0548256), zoom: 12 };
+                return new google.maps.Map($elm, mapOptions);
+            """)>]
+            let init(elm) = X<obj>
+
+            [<Direct("""$map.setCenter({'lng':$lng,'lat':$lat})""")>]
+            let setCenter map lng lat = X<unit>
+
         let page city =
-            city 
+            city
             |> View.MapAsync Server.geocode
             |> View.Map (function
-                | Some geocode -> text (sprintf "%A" geocode)
-                | None -> text "0")
+                | Some geocode ->
+                    divAttr [ attr.style "width: 500px; height: 500px;"
+                              on.afterRender (fun div ->
+                                let map = GoogleMap.init div
+                                GoogleMap.setCenter map geocode.Lng geocode.Lat
+                                ()) ] [] :> Doc
+                | None -> text "Location not found.")
             |> Doc.EmbedView
