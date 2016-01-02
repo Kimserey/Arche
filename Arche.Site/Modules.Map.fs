@@ -5,7 +5,16 @@ open Arche.Common
 
 module Map =
 
-    module Server =
+    module private Resource =
+        open WebSharper.Resources
+
+        module GoogleMap =
+            
+            type Js() =
+                inherit BaseResource(sprintf "https://maps.googleapis.com/maps/api/js?key=%s&signed_in=true" Config.value.GoogleMap.ApiKey)
+
+
+    module private Server =
         open FSharp.Data
 
         [<Literal>]
@@ -38,15 +47,6 @@ module Map =
                        | _ -> None
             }
 
-    module Resource =
-        open WebSharper.Resources
-
-        module GoogleMap =
-            
-            type Js() =
-                inherit BaseResource(sprintf "https://maps.googleapis.com/maps/api/js?key=%s&signed_in=true" Config.value.GoogleMap.ApiKey)
-
-
     [<JavaScript; Require(typeof<Resource.GoogleMap.Js>)>]
     module Client =
         open WebSharper.UI.Next
@@ -54,16 +54,9 @@ module Map =
         open WebSharper.UI.Next.Client
         open WebSharper.JavaScript
 
-        module GoogleMap =
-            
-            [<Direct(""" 
-                var mapOptions = { center: new google.maps.LatLng(47.4968222, 19.0548256), zoom: 12 };
-                return new google.maps.Map($elm, mapOptions);
-            """)>]
-            let init(elm) = X<obj>
-
-            [<Direct("""$map.setCenter({'lng':$lng,'lat':$lat})""")>]
-            let setCenter map lng lat = X<unit>
+        module private GoogleMap =
+            [<Direct(""" var mapOptions = { center: new google.maps.LatLng($lat, $lng), zoom: 12 }; return new google.maps.Map($elm, mapOptions); """)>]
+            let init elm lat lng = X<unit>
 
         let page city =
             city
@@ -71,9 +64,6 @@ module Map =
             |> View.Map (function
                 | Some geocode ->
                     divAttr [ attr.style "width: 500px; height: 500px;"
-                              on.afterRender (fun div ->
-                                let map = GoogleMap.init div
-                                GoogleMap.setCenter map geocode.Lng geocode.Lat
-                                ()) ] [] :> Doc
+                              on.afterRender (fun div -> do GoogleMap.init div geocode.Lat geocode.Lng) ] [] :> Doc
                 | None -> text "Location not found.")
             |> Doc.EmbedView

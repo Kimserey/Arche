@@ -11,7 +11,7 @@ module LocationPicker =
         open WebSharper.UI.Next.Client
 
         let page() =
-            let rvCity = Var.Create ""
+            let rvCity = Var.Create "London"
             form [ divAttr [ attr.``class`` "form-group" ]
                            [ labelAttr [ attr.``class`` "control-label" ] [ text "Enter a city:" ]
                              Doc.Input [ attr.``class`` "form-control"
