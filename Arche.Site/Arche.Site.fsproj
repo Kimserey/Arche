@@ -8,9 +8,10 @@
     <WebSharperProject>Site</WebSharperProject>
     <WebProjectOutputDir>$(MSBuildThisFileDirectory)</WebProjectOutputDir>
     <StartArguments>.. http://localhost:9000/</StartArguments>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -32,7 +33,7 @@
     <Name>Arche.Site</Name>
     <RootNamespace>Arche.Site</RootNamespace>
     <AssemblyName>Arche.Site</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <Target Name="IncludeContent" BeforeTargets="Compile">
@@ -71,7 +72,7 @@
   </Target>
   <ItemGroup>
     <Compile Include="Modules.Weather.fs" />
-    <Compile Include="Modules.Location.fs" />
+    <Compile Include="Modules.LocationPicker.fs" />
     <Compile Include="Modules.Username.fs" />
     <Compile Include="Webparts.WeatherLocation.fs" />
     <Compile Include="Webparts.Profile.fs" />
@@ -83,8 +84,15 @@
     <Compile Include="Shell.Site.fs" />
     <Content Include="App.config" />
     <Content Include="packages.config" />
+    <None Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Data">
+      <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HttpMultipartParser">
       <HintPath>..\packages\WebSharper.Owin.3.6.1.115\lib\net45\HttpMultipartParser.dll</HintPath>
       <Private>True</Private>
