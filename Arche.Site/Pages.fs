@@ -23,7 +23,8 @@ module All =
         
         { Title   = "Weather"
           Route   = Route.Create [ "weather" ]
-          Content = client <@ Weather.Client.webpart() @>
+          Content = 
+            divAttr [ attr.style "max-width: 600px; margin: auto;" ] [ client <@ Weather.Client.webpart() @> ]
           DisplayOption = DisplayOption.PageWithMenu
           AccessOption  = AccessOption.Menu "Weather" }
     ]

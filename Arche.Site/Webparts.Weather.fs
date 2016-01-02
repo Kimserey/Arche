@@ -4,6 +4,7 @@ open WebSharper
 open WebSharper.UI.Next
 open Arche
 open Arche.Modules
+open Arche.Common.Bootstrap
 
 module Weather =
     
@@ -15,5 +16,6 @@ module Weather =
             let (locationDoc, locationView) = 
                 LocationPicker.Client.page()
 
-            div [ div [ Weather.Client.page locationView ]
-                  div [ locationDoc ] ]
+            panel "Weather" [ divAttr [ attr.style "text-align: center;" ] 
+                                      [ Weather.Client.page locationView ]
+                              div [ locationDoc ] ]

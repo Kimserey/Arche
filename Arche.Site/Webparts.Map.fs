@@ -4,6 +4,7 @@ open WebSharper
 open WebSharper.UI.Next
 open Arche
 open Arche.Modules
+open Arche.Common.Bootstrap
 
 module Map =
     
@@ -15,5 +16,5 @@ module Map =
             let (locationDoc, locationView) = 
                 LocationPicker.Client.page()
 
-            div [ div [ Map.Client.page locationView ]
-                  div [ locationDoc ] ]
+            panel "Map" [ div [ Map.Client.page locationView ]
+                          div [ locationDoc ] ]

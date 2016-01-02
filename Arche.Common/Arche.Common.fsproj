@@ -57,6 +57,7 @@
   </Target>
   <ItemGroup>
     <Compile Include="Domain.fs" />
+    <Compile Include="Bootstrap.fs" />
     <Compile Include="Config.fs" />
     <Content Include="app.config" />
     <Content Include="packages.config" />
