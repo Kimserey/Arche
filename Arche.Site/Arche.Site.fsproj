@@ -73,11 +73,10 @@
   <ItemGroup>
     <Compile Include="Modules.Weather.fs" />
     <Compile Include="Modules.LocationPicker.fs" />
-    <Compile Include="Modules.Username.fs" />
-    <Compile Include="Webparts.WeatherLocation.fs" />
-    <Compile Include="Webparts.Profile.fs" />
+    <Compile Include="Modules.Map.fs" />
+    <Compile Include="Webparts.Weather.fs" />
+    <Compile Include="Webparts.Map.fs" />
     <Compile Include="Pages.Home.fs" />
-    <Compile Include="Pages.Weather.fs" />
     <Compile Include="Pages.fs" />
     <Compile Include="Shell.Menu.fs" />
     <Compile Include="Shell.Main.fs" />
