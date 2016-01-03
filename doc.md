@@ -186,7 +186,6 @@ There are two modules within the Menu module.
 - Client
 - Static
 
-Client contains the code which will be converted to JS. Static contains the code that is used by the Sitelet to compose the page. In other modules, there will be one more module called Server which will contain the RPC calls.
+Client contains the code which will be converted to JS. Static contains the code that is used by the Sitelet to compose the page. In other modules, there will be one more module called `Server` which will contain the WebSharper RPC calls.
 
-
-Now the shell is ready to load all the pages and won't need to be touched anymore.
+Now the shell is ready to welcome all the pages that we define and we won't need to touch it anymore (sounds like the open close... you know, open to extensions close to modification).
