@@ -70,7 +70,9 @@ Following the diagram, we placed the __common code__ in its own library. The Sit
 
 F# allows us to ensure the references are one way only as only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
 
-Next step we need to define what a Page is, how it should be displayed and from where can it be accessed.
+### Common - Domain
+
+First w need to define what a Page is, how it should be displayed and from where can it be accessed.
 
 ```
 type Page = {
@@ -88,10 +90,40 @@ and AccessOption = Menu  of string | Other
 and Route = Route of string list
 ```
 
+### Shell
+
 We then write the code to compose the shell and the navbar.
 The links in the navbar will be constructed based on what is defined in the pages. If the page is accessible through nav, it will create a button link in the nav. Then the display option is used to define whether the page will be full screen or embeded with nav at the top.
 
-[code]
+```
+module Main =
+    /// Embeds the content in a page with nav if needed
+    let mkContent ctx curr =
+        match curr.DisplayOption with
+        | DisplayOption.FullPage ->
+            curr.Content
+            
+        | DisplayOption.PageWithMenu ->
+            let routes = 
+                All.pages |> List.choose (fun p -> 
+                    match p.AccessOption with
+                    | AccessOption.Menu title -> Some (title, ctx.Link p.Title)
+                    | AccessOption.Other      -> None)
+
+            curr.Content 
+            |> Menu.Static.embed (ctx.Link "Home") curr.Title routes
+    
+    /// Builds a sitelet given a page
+    let mkPage page =
+        Sitelet.Content
+        <| page.Route.Value 
+        <| page.Title 
+        <| fun ctx -> Content.Page (Title = page.Title, Body = [ mkContent ctx page ])
+    
+    /// Builds the site by summing all sitelets
+    let main() =
+        All.pages |> List.map mkPage |> Sitelet.Sum
+```
 
 Each page is defined as a sitelet using the route and title and then sum together to form the main sitelet. The sitelet is then loaded on a owin selft host.
 
