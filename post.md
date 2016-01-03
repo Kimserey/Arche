@@ -44,7 +44,7 @@ Dependencies flow downward only. Elements don't reference other elements from th
 - Webparts do not need other webparts
 - Modules do not need other modules
 
-Following this rule will allow us to be very flexible. We will then be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issues as they are independent from each other.
+Following this rule enables us flexibility. We will then be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issues as they are independent from each other.
 
 Now that we understand the architecture, let's see how we can apply it in F# with WebSharper.
 
@@ -67,11 +67,11 @@ First, we start by creating empty containers for our future code:
 
 Following the architecture diagram, we place the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
 
-F# allows us to ensure the references are one way only. Only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
+F# allows us to ensure the references are one way only. Only bottom files can reference top files, your functions must be defined first before you can use it. Therefore, if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
 
 ### Common - Domain
 
-First we need to define what a Page is, how it should be displayed and from where can it be accessed.
+First we need to define what a Page is, how it should be displayed and from where it can be accessed.
 
 ```
 type Page = {
@@ -92,7 +92,7 @@ and Route = Route of string list
 ### Shell
 
 We then write the code to compose the shell and the navbar.
-The links in the navbar will be constructed based on what is defined in the pages. If the page is accessible through nav, it will create a button link in the nav. Then the display option is used to define whether the page will be full screen or embeded with nav at the top.
+The links in the navbar will be constructed based on what is defined in the pages. If the page is accessible through nav, it will create a button link in the nav. Then the display option is used to define whether the page will be full screen or embedded with nav at the top.
 
 ```
 module Main =
@@ -244,11 +244,11 @@ module Weather =
 
 The `Weather webpart` uses the `LocationPicker module` which returns its content plus a view on a location variable. The `Weather module` takes a location view and uses it to display the weather for this particular location. 
 
-It is important to note that the `LocationPicker module` is not directly used in the `Weather module`. `Weather module` accepts a view as argument, it doesn't matter where the view comes from. It is the role of the webpart to bind the `LocationPicker module` location view result to the `Weather module` and to ensure that `LocationPicker` is not dependent on `Weather` and vice versa. Modules should not reference each other.
+It is important to note that the `LocationPicker module` is not directly used in the `Weather module`. `Weather module` accepts a view as an argument, it doesn't matter where the view comes from. It is the role of the webpart to bind the `LocationPicker module` location view result to the `Weather module` and to ensure that `LocationPicker` is not dependent on `Weather` and vice versa. Modules should not reference each other.
 
 ### Modules
 
-The last part of our architecture is the modules. We will have a look at `Weather module`, you can have a look at [the full code here](https://github.com/Kimserey/Arche/blob/master/Arche.Site/Modules.Weather.fs). First we defines a type that will represent the `Forecast`.
+The last part of our architecture is the modules. We will have a look at `Weather module`, you can have a look at [the full code here](https://github.com/Kimserey/Arche/blob/master/Arche.Site/Modules.Weather.fs). We'll define a type that will represent the `Forecast`.
 
 ```
 type private Forecast = {
@@ -260,7 +260,7 @@ type private Forecast = {
 }
 ```
 
-To get the weather, I used [http://openweathermap.org/api](http://openweathermap.org/api). Using the `JsonProvider` from `FSharp.Data` simplifies a lot the interaction with the open weather api. We then provide a `RPC` call which returns the `Forecast` depending on the city given. `RPC` allows `Server` calls to be called from `Client` code. Serialization is handled automatically by WebSharper and we can use the same types that is returned from the `Server` in the `Client`.
+To get the weather, I used [http://openweathermap.org/api](http://openweathermap.org/api). Using the `JsonProvider` from `FSharp.Data` simplifies the interaction with the open weather api. We then provide a `RPC` call which returns the `Forecast` depending on the city given. `RPC` allows `Server` calls to be called from `Client` code. Serialization is handled automatically by WebSharper and we can use the same types that is returned from the `Server` in the `Client`.
 
 ```
 module private Server =
@@ -288,7 +288,7 @@ module private Server =
 
 We then construct a reactive doc based on the city given. Everytime the city changes, the `RPC` is called and the doc is updated. 
 
-`View.MapAsync: ('A -> Async<'B>) -> View<'A> -> View<'B>` takes as first argument an `async` function which is run every time the view is updated and returns a view of the result of the `async` function.
+`View.MapAsync: ('A -> Async<'B>) -> View<'A> -> View<'B>` takes as first argument an `async` function which is ran every time the view is updated and returns a view of the result of the `async` function.
 
 ```
 [<JavaScript>]
@@ -322,4 +322,4 @@ Modules are the last element of the architecture. They must be completely indepe
 
 ## Conclusion
 
-Today we have seen one way of structuring a web app. It will allow us to reduce coupling between elements and allow rapid changes and add of features. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. We have defined a clear structure which will allow us and other developers to not be confused about where to place code and how does each components interact with each other. I am quite happy with the overall structure and hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
+Today, we have seen one way of structuring a web app. It will allow us to reduce coupling between elements and allow rapid changes and add new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. We have defined a clear structure which will allow us and other developers to not be confused about where to place code and how does each components interact with each other. I am quite happy with the overall structure and hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
