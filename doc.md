@@ -62,6 +62,7 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
+The WebSharper notation can be scary at first, but after getting used to it, it is quite straightforward. If you aren't familiar with it, I have wrote [a previous blog post where I give some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
 We start first by creating empty containers for our future code:
 
 ![files](http://4.bp.blogspot.com/-d4Ip0tx-WAE/Voi0h7LGkuI/AAAAAAAAADg/MWH1EJJ0tFw/s1600/Screen%2BShot%2B2016-01-03%2Bat%2B13.32.30.png)
@@ -240,3 +241,5 @@ module Weather =
                                       [ Weather.Client.page locationView ]
                               div [ locationDoc ] ]
 ```
+
+`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can look at it in the 
