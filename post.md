@@ -319,4 +319,6 @@ module Client =
 
 Modules are the last element of the architecture. They must be completely independent and can be added or removed with ease from webparts.
 
-### Conclusion
+## Conclusion
+
+Today we have seen one way of structuring a web app. It will allow us to reduce coupling between elements and allow rapid changes and add of features. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. We have defined a clear structure which will allow us and other developers to not be confused about where to place code and how does each components interact with each other. I am quite happy with the overall structure and hope you enjoyed reading this post as much I enjoyed writing it. Until next time! Thanks for reading!
