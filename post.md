@@ -10,7 +10,7 @@ __F# + WebSharper is an awesome combination to build web application__. The only
 
 Asking these questions at the beginning of the development is important. All these questions if answered correctly will lead to a good structure for the application. Answered incorrectly, or not even asked, will most likely lead to unmaintainable/fragile/rigid (or whatever bad adjectives for coding) code.
 
-Over the last few months I have been working on a web app built in F# with WebSharper and came out with an architecture which cares for extensions and support for multiple customers. Today I decided to share this structure and hope that it will give you ideas and help you in your development. 
+Over the last few months I have been working on a web app built in F# with WebSharper and came out with an architecture which cares for extensions and decoupling. Today I decided to share this structure and hope that it will give you ideas and help you in your development. 
 
 So let's get started!
 
