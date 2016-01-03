@@ -55,6 +55,7 @@ To see how we can apply this architecture, we will build a sample app which cont
 - a page to show places on a map
 - a page to show the weather
 
+You can play with the app here [http://arche1.azurewebsites.net/](http://arche1.azurewebsites.net/).
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
 If you aren't familiar with WebSharper.UI.Next html notation, I wrote [a blog post where I gave some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
