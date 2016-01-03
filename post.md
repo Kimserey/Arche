@@ -71,7 +71,7 @@ F# allows us to ensure the references are one way only. Only bottom files can re
 
 ### Common - Domain
 
-First we need to define what a Page is, how it should be displayed and from where it can be accessed.
+The domain contains all the domain types. One of this type is the `Page` record type which contains the information about how a page should be displayed and from where it can be accessed.
 
 ```
 type Page = {
@@ -248,7 +248,7 @@ It is important to note that the `LocationPicker module` is not directly used in
 
 ### Modules
 
-The last part of our architecture is the modules. We will have a look at `Weather module`, you can have a look at [the full code here](https://github.com/Kimserey/Arche/blob/master/Arche.Site/Modules.Weather.fs). We'll define a type that will represent the `Forecast`.
+The last part of our architecture is the modules. We will look at `Weather module`, you can have a look at [the full code here](https://github.com/Kimserey/Arche/blob/master/Arche.Site/Modules.Weather.fs). For that we need to define a `Forecast` record type:
 
 ```
 type private Forecast = {
@@ -322,4 +322,4 @@ Modules are the last element of the architecture. They must be completely indepe
 
 ## Conclusion
 
-Today, we have seen one way of structuring a web app. It will allow us to reduce coupling between elements and allow rapid changes and add new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. We have defined a clear structure which will allow us and other developers to not be confused about where to place code and how does each components interact with each other. I am quite happy with the overall structure and hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
+Today, we have seen one way of structuring a web app which allows us to reduce coupling between elements and allows rapid changes and adding new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. Finally this structure also allows us and other developers to not be confused about where to place code and defined a clear way for components to interact with each other. I hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
