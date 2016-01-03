@@ -92,7 +92,7 @@ and Route = Route of string list
 ### Shell
 
 Having defined the page earlier, we can write the code to compose the shell and the navbar.
-The links in the navbar are constructed based on the `AccessOption` and the display option is used to define whether the page will be displayed in full screen or embedded with a nav at the top.
+The links in the navbar are constructed based on the `AccessOption` and the `DisplayOption` is used to define whether the page will be displayed in full screen or embedded with a nav at the top.
 
 ```
 module Main =
@@ -124,7 +124,7 @@ module Main =
         All.pages |> List.map mkPage |> Sitelet.Sum
 ```
 
-Each page is defined as a sitelet using the route and title and then sum together to form the main sitelet.
+Each page is defined as a sitelet using the route and title and then all pages are sum together to form the main sitelet.
 
 The menu is defined as followed:
 
@@ -185,7 +185,7 @@ There are two modules within the Menu module.
 - Client
 - Static
 
-Client contains the code which will be converted to JS. Static contains the code that is used by the Sitelet to compose the page. In other modules, there will be one more module called `Server` which will contain the WebSharper RPC calls.
+`Client` contains the code which will be converted to JS. `Static` contains the code that is used by the Sitelet to compose the page. In other modules, there might be one more module called `Server` which will contain the WebSharper `RPC` calls.
 
 Now the shell is ready to welcome all the pages that we define and we won't need to touch it anymore (sounds like the open close... you know, open for extension close to modification).
 
@@ -216,12 +216,12 @@ let pages = [
 ]
 ```
 
-As expected, they define the title, route, content of the page and how it should be displayed and accessed.
+As expected, they define the title, route, content of the page, how it should be displayed and accessed.
 
 ### Webparts
 
 In our sample, the webparts are straightforward. But in other apps those might be more complex. The role of the webpart is to combine the modules together to form a part of functionality that is useful to the user.
-Here we just need to combine the `Map` module with the `LocationPicker` module for the `Map webpart` and same for the `Weather webpart`.
+Here we just need to combine the `Map module` with the `LocationPicker module` for the `Map webpart` and same for the `Weather webpart`.
 
 Let's see the `Weather webpart`:
 
@@ -240,7 +240,7 @@ module Weather =
                               div [ locationDoc ] ]
 ```
 
-`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can find it [in the code](https://github.com/Kimserey/Arche/blob/master/Arche.Common/Bootstrap.fs).
+`panel` is a helper defined in the `Bootstrap module` in `Common`. You can find [the full code here](https://github.com/Kimserey/Arche/blob/master/Arche.Common/Bootstrap.fs).
 
 The `Weather webpart` uses the `LocationPicker module` which returns its content plus a view on a location variable. The `Weather module` takes a location view and uses it to display the weather for this particular location. 
 
@@ -260,7 +260,7 @@ type private Forecast = {
 }
 ```
 
-To get the weather, I used [http://openweathermap.org/api](http://openweathermap.org/api). Using the `JsonProvider` from `FSharp.Data` simplifies the interaction with the open weather api. We then provide a `RPC` call which returns the `Forecast` depending on the city given. `RPC` allows `Server` calls to be called from `Client` code. Serialization is handled automatically by WebSharper and we can use the same types that is returned from the `Server` in the `Client`.
+To get the weather, I used [http://openweathermap.org/api](http://openweathermap.org/api). Using the `JsonProvider` from `FSharp.Data` simplifies the interactions with the open weather api. We provide a `RPC` call which returns the `Forecast` depending on the city given. `RPC` allows `Server` calls to be called from `Client` code. Serialization is handled automatically by WebSharper and we can use the same types returned from the `Server` in the `Client`.
 
 ```
 module private Server =
@@ -286,9 +286,9 @@ module private Server =
         }
 ```
 
-We then construct a reactive doc based on the city given. Everytime the city changes, the `RPC` is called and the doc is updated. 
+For the `Client`, we construct a reactive doc based on the city given. Everytime the city changes, the `RPC` is called and the doc is updated. 
 
-`View.MapAsync: ('A -> Async<'B>) -> View<'A> -> View<'B>` takes as first argument an `async` function which is ran every time the view is updated and returns a view of the result of the `async` function.
+`View.MapAsync: ('A -> Async<'B>) -> View<'A> -> View<'B>` takes as first argument a `async` function which is ran every time the view is updated and returns a view of the result of that `async` function. It makes it easy to combine view operations since we don't need to bother about their `async` nature.
 
 ```
 [<JavaScript>]
@@ -322,4 +322,6 @@ Modules are the last element of the architecture. They must be completely indepe
 
 ## Conclusion
 
-Today, we have seen one way of structuring a web app which allows us to reduce coupling between elements and allows rapid changes and adding new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that we register. Finally this structure also allows us and other developers to not be confused about where to place code and defined a clear way for components to interact with each other. I hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
+Today, we have seen one way of structuring a web app which reduces coupling between elements and allows rapid changes and adding new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that are registered. Finally this structure also remove the confusion of where to place code and defined a clear way for components to interact with each other. I hope that this post will help you in your developement and I hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
+
+[The full code is available on github](https://github.com/Kimserey/Arche)
