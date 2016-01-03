@@ -243,4 +243,10 @@ module Weather =
                               div [ locationDoc ] ]
 ```
 
-`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can find it [in the code](https://github.com/Kimserey/Arche/blob/master/Arche.Common/Bootstrap.fs)
+`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can find it [in the code](https://github.com/Kimserey/Arche/blob/master/Arche.Common/Bootstrap.fs).
+
+The Weather webpart uses the `LocationPicker` module which returns its own content plus a view on a location variable which we assume to be set from within the `LocationPicker`. The `Weather module` takes a location view and uses it to display the weather for this location. It is important to note that the `LocationPicker` is not used directly in the `Weather module`. That is the role of the webpart, to bind the `LocationPicker module` result to the `Weather module` and ensure `LocationPicker` is not dependent on `Weather` and vice versa.
+
+### Modules
+
+
