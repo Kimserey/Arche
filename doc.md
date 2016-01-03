@@ -57,8 +57,8 @@ Now that we understand the architecture, let's see how we can apply it in F# wit
 
 To see how we can apply this architecture, we will build a sample app which contains 3 pages:
 - a home page
+- a page to show places on a map
 - a page to show the weather
-- a page to show places on a map.
 
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
