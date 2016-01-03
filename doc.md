@@ -21,7 +21,7 @@ The ideas behind this architecture come from two powerful concepts:
 - Encapsulation through .FSX files - inspired by my colleague/buddy [Nathan](https://twitter.com/nbevans)
 
 The idea of a modular achitecture is that the application is composed by small pieces (modules) which are completely independent of each others. One lives without knowing the others and none of the modules have dependencies on other modules. The patterns explained in the blog post of Addy Osmani goes much deeper and defines many other patterns but to me the most crutial understanding is that we should strive to manage dependencies. Coupling is the worse enemy of large application. It stops us from changing or removing pieces of the application and brings [FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt) in our daily development. I've been there.. and it's not fun.
-The second idea of encapsulation through .FSX files is meant to 
+The second idea of encapsulation through .FSX files allows the app to be extended with new content contained in .FSX files. It is very useful as it provides a sandbox for other developers to work on features of the web app without the need of undestanding the core nor the need of modifying it. It also gives maximum flexibility as each .FSX files is totally self contained. They can be added or removed without breaking the system.  
 
 
 Here's how the architecture looks like:
