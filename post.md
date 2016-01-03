@@ -60,6 +60,8 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 If you aren't familiar with WebSharper.UI.Next html notation, I have wrote [a previous blog post where I give some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
 
+### Building blocks
+
 We start first by creating empty containers for our future code:
 
 ![files](http://4.bp.blogspot.com/-d4Ip0tx-WAE/Voi0h7LGkuI/AAAAAAAAADg/MWH1EJJ0tFw/s1600/Screen%2BShot%2B2016-01-03%2Bat%2B13.32.30.png)
