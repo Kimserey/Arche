@@ -1,0 +1,8 @@
+﻿{
+  "openWeather": {
+    "apiKey": "1c819845460d82bb6ae650af1ec1a787"
+  },
+  "googleMap": {
+    "apiKey":  "AIzaSyAmUh9S09OHr-rwTtmjlL7ZWQZyZVl8-J4"
+  }
+}

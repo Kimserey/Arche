@@ -1,6 +1,6 @@
 packages/*
-Arche.Site/bin/*
-Arche.Site/obj/*
-Arche.Site/Scripts/*
+Arche.WebSite/bin/*
+Arche.WebSite/obj/*
+Arche.WebSite/Scripts/*
 Arche.Common/bin/*
 Arche.Common/obj/*

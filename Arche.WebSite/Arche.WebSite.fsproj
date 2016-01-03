@@ -4,10 +4,14 @@
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
     <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0949dcb3-32bd-40b7-a16d-eb8255c3d411}</ProjectGuid>
+    <ProjectGuid>{b316464e-4862-48f7-85b3-dbe4d325f57f}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F2A71F9B-5D33-465A-A702-920D77279786}</ProjectTypeGuids>
     <WebSharperProject>Site</WebSharperProject>
-    <WebProjectOutputDir>$(MSBuildThisFileDirectory)</WebProjectOutputDir>
-    <StartArguments>.. http://localhost:9000/</StartArguments>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -29,10 +33,10 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <Name>Arche.Site</Name>
-    <RootNamespace>Arche.Site</RootNamespace>
-    <AssemblyName>Arche.Site</AssemblyName>
+    <OutputType>Library</OutputType>
+    <Name>Arche.WebSite</Name>
+    <RootNamespace>Arche.WebSite</RootNamespace>
+    <AssemblyName>Arche.WebSite</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <WarningLevel>3</WarningLevel>
   </PropertyGroup>
@@ -63,6 +67,45 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties Guid="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50725</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50725/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties Guid="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
   <Import Project="..\packages\WebSharper.3.6.6.225\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.3.6.6.225\build\WebSharper.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -81,7 +124,10 @@
     <Compile Include="Shell.Menu.fs" />
     <Compile Include="Shell.Main.fs" />
     <Compile Include="Shell.Site.fs" />
-    <Content Include="App.config" />
+    <Content Include="Web.config" />
+    <Content Include="Global.asax" />
+    <Compile Include="Global.asax.fs" />
+    <Content Include="Setup.fsx" />
     <Content Include="packages.config" />
     <None Include="config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -92,69 +138,20 @@
       <HintPath>..\packages\FSharp.Data.2.2.5\lib\net40\FSharp.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HttpMultipartParser">
-      <HintPath>..\packages\WebSharper.Owin.3.6.1.115\lib\net45\HttpMultipartParser.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="IntelliFactory.Xml">
-      <HintPath>..\packages\IntelliFactory.Xml.0.6.63.95\lib\net40\IntelliFactory.Xml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Diagnostics">
-      <HintPath>..\packages\Microsoft.Owin.Diagnostics.3.0.1\lib\net45\Microsoft.Owin.Diagnostics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.FileSystems">
-      <HintPath>..\packages\Microsoft.Owin.FileSystems.3.0.1\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener">
-      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Hosting">
-      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.StaticFiles">
-      <HintPath>..\packages\Microsoft.Owin.StaticFiles.3.0.1\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.1\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions.dll" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices.dll" />
+    <Reference Include="System.Web.DynamicData.dll" />
+    <Reference Include="System.Web.Entity.dll" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Linq.dll" />
     <Reference Include="WebSharper.Collections">
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Collections.dll</HintPath>
       <Private>True</Private>
@@ -169,14 +166,6 @@
     </Reference>
     <Reference Include="WebSharper.Core.JavaScript">
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Core.JavaScript.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WebSharper.Html.Client">
-      <HintPath>..\packages\WebSharper.Html.3.6.2.12\lib\net40\WebSharper.Html.Client.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="WebSharper.Html.Server">
-      <HintPath>..\packages\WebSharper.Html.3.6.2.12\lib\net40\WebSharper.Html.Server.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebSharper.InterfaceGenerator">
@@ -195,10 +184,6 @@
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Main.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebSharper.Owin">
-      <HintPath>..\packages\WebSharper.Owin.3.6.1.115\lib\net45\WebSharper.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="WebSharper.Sitelets">
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Sitelets.dll</HintPath>
       <Private>True</Private>
@@ -215,6 +200,8 @@
       <HintPath>..\packages\WebSharper.3.6.6.225\lib\net40\WebSharper.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Arche.Common\Arche.Common.fsproj">
       <Name>Arche.Common</Name>
       <Project>{e9b77a1a-bf50-4fbb-aba0-bf20a9be2d78}</Project>

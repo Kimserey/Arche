@@ -1,8 +1,0 @@
-﻿{
-  "openWeather": {
-    "apiKey": "your api key"
-  },
-  "googleMap": {
-    "apiKey":  "your api key"
-  }
-}
