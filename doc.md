@@ -62,7 +62,9 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 We start first by creating empty containers for our future code:
 
-[Image]
+![files](http://4.bp.blogspot.com/-d4Ip0tx-WAE/Voi0h7LGkuI/AAAAAAAAADg/MWH1EJJ0tFw/s1600/Screen%2BShot%2B2016-01-03%2Bat%2B13.32.30.png)
+
+Following the diagram, we placed the common code in its own library. The Site project contains the Shell/Page/Webpart/Module categories. F# allows us to ensure the references are one way only as only bottom files can reference top files, in other word, your functions must be defined first before you can use it. If we keep the modules at the top level, it will indirectly force us to implement modules with the least dependencies in the project.
 
 We start first by defining the Page type which contains all the necessary information to diaplay a page.
 
