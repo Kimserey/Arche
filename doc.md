@@ -60,7 +60,7 @@ To see how we can apply this architecture, we will build a sample app which cont
 - a page to show the weather
 - a page to show places on a map.
 
-![preview](http://1.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAADw/7lybBRm1oiI/s1600/arche.gif)
+![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
 We start first by creating empty containers for our future code:
 
