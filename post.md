@@ -2,7 +2,7 @@
 
 # Architecture for web app built in F# and WebSharper
 
-__F# + WebSharper is an awesome combination to build web application__. The only problem is that if you want to build a webapp larger than a to-do list, it's hard to find examples to use as references. It is even harder to find tutorials that touches on overall design and answer questions like: 
+__F# + WebSharper is an awesome combination to build web application__. The only problem is that if you want to build a web app larger than a to-do list, it's hard to find examples to use as references. It is even harder to find tutorials that touches on overall design and answer questions like: 
 - _How should I start?_
 - _Where should I put the code?_
 - _How should I separate the code, put it in different files, with different namespaces or modules?_
@@ -44,7 +44,7 @@ Dependencies flow downward only. Elements don't reference other elements from th
 - Webparts do not need other webparts
 - Modules do not need other modules
 
-Following this rule enables us flexibility. We will then be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issues as they are independent from each other.
+Following this rule makes the structure very flexible. We will be able to easily remove or add pages. We will also be able to substitute a module for another in a webpart or substitute a webpart for another in a page without issues as they are independent from each other.
 
 Now that we understand the architecture, let's see how we can apply it in F# with WebSharper.
 
