@@ -189,3 +189,54 @@ There are two modules within the Menu module.
 Client contains the code which will be converted to JS. Static contains the code that is used by the Sitelet to compose the page. In other modules, there will be one more module called `Server` which will contain the WebSharper RPC calls.
 
 Now the shell is ready to welcome all the pages that we define and we won't need to touch it anymore (sounds like the open close... you know, open to extensions close to modification).
+
+### Pages
+
+Pages are pretty straightforward:
+
+```
+let pages = [
+    { Title   = "Home"
+      Route   = Route.Create [ "" ]
+      Content = client <@ Home.Client.page() @>
+      DisplayOption = DisplayOption.PageWithMenu
+      AccessOption  = AccessOption.Other }
+
+    { Title   = "Map"
+      Route   = Route.Create [ "map" ]
+      Content = client <@ Map.Client.webpart() @>
+      DisplayOption = DisplayOption.PageWithMenu
+      AccessOption  = AccessOption.Menu "Map" }
+    
+    { Title   = "Weather"
+      Route   = Route.Create [ "weather" ]
+      Content = 
+        divAttr [ attr.style "max-width: 600px; margin: auto;" ] [ client <@ Weather.Client.webpart() @> ]
+      DisplayOption = DisplayOption.PageWithMenu
+      AccessOption  = AccessOption.Menu "Weather" }
+]
+```
+
+As expected, they define the title, route, content of the page and how it should be displayed and accessed.
+
+### Webparts
+
+In our sample, the webparts are straightforward. But in other apps those might be more complex. The role of the webpart is to combine the modules together to form a part of functionality that is useful to the user.
+Here we just need to combine the `Map` module with the `LocationPicker` module for the `Map webpart` and same for the `Weather webpart`.
+
+Let's see the `Weather webpart`:
+
+```
+module Weather =
+    [<JavaScript>]
+    module Client =
+        open WebSharper.UI.Next.Html
+        
+        let webpart() =
+            let (locationDoc, locationView) = 
+                LocationPicker.Client.page()
+
+            panel "Weather" [ divAttr [ attr.style "text-align: center;" ] 
+                                      [ Weather.Client.page locationView ]
+                              div [ locationDoc ] ]
+```
