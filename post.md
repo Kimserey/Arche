@@ -57,7 +57,7 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
-If you aren't familiar with WebSharper.UI.Next html notation, I have wrote [a previous blog post where I gave some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
+If you aren't familiar with WebSharper.UI.Next html notation, I wrote [a blog post where I gave some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
 
 ### Building blocks
 
@@ -67,7 +67,7 @@ First, we start by creating empty containers for our future code:
 
 Following the architecture diagram, we place the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
 
-F# allows us to ensure the references are one way only. Only bottom files can reference top files, your functions must be defined first before you can use it. Therefore, if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
+F# enforces the references direction. Only bottom files can reference top files, your functions must be defined first before you can use it. Therefore, if we keep the modules at the top level, it will indirectly make the module's code have the least dependencies in the project.
 
 ### Common - Domain
 
@@ -91,8 +91,8 @@ and Route = Route of string list
 
 ### Shell
 
-We then write the code to compose the shell and the navbar.
-The links in the navbar will be constructed based on what is defined in the pages. If the page is accessible through nav, it will create a button link in the nav. Then the display option is used to define whether the page will be full screen or embedded with nav at the top.
+Having defined the page earlier, we can write the code to compose the shell and the navbar.
+The links in the navbar are constructed based on the `AccessOption` and the display option is used to define whether the page will be displayed in full screen or embedded with a nav at the top.
 
 ```
 module Main =
