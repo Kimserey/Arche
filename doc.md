@@ -182,4 +182,11 @@ module Menu =
             ] |> Doc.Concat
 ```
 
+There are two modules within the Menu module.
+- Client
+- Static
+
+Client contains the code which will be converted to JS. Static contains the code that is used by the Sitelet to compose the page. In other modules, there will be one more module called Server which will contain the RPC calls.
+
+
 Now the shell is ready to load all the pages and won't need to be touched anymore.
