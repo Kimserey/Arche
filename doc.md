@@ -73,6 +73,19 @@ F# allows us to ensure the references are one way only as only bottom files can 
 Next step we need to define what a Page is, how it should be displayed and from where can it be accessed.
 
 ```
+type Page = {
+    Title: string
+    Content: Doc
+    // defines how the page should be displayed
+    DisplayOption: DisplayOption
+    // defines how the page should be accessed
+    AccessOption: AccessOption
+    // defines the route url
+    Route: Route
+} 
+and DisplayOption = PageWithMenu | FullPage
+and AccessOption = Menu  of string | Other
+and Route = Route of string list
 ```
 
 We then write the code to compose the shell and the navbar.
