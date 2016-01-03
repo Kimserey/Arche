@@ -66,7 +66,7 @@ We start first by creating empty containers for our future code:
 
 ![files](http://4.bp.blogspot.com/-d4Ip0tx-WAE/Voi0h7LGkuI/AAAAAAAAADg/MWH1EJJ0tFw/s1600/Screen%2BShot%2B2016-01-03%2Bat%2B13.32.30.png)
 
-Following the diagram, we placed the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
+Following the architecture diagram, we placed the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
 
 F# allows us to ensure the references are one way only as only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
 
