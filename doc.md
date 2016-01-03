@@ -58,7 +58,7 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
-The WebSharper notation can be scary at first, but after getting used to it, it is quite straightforward. If you aren't familiar with it, I have wrote [a previous blog post where I give some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
+If you aren't familiar with WebSharper.UI.Next html notation, I have wrote [a previous blog post where I give some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
 
 We start first by creating empty containers for our future code:
 
@@ -70,7 +70,7 @@ F# allows us to ensure the references are one way only as only bottom files can 
 
 ### Common - Domain
 
-First w need to define what a Page is, how it should be displayed and from where can it be accessed.
+First we need to define what a Page is, how it should be displayed and from where can it be accessed.
 
 ```
 type Page = {
@@ -243,8 +243,68 @@ module Weather =
 
 The `Weather webpart` uses the `LocationPicker module` which returns its content plus a view on a location variable. The `Weather module` takes a location view and uses it to display the weather for this particular location. 
 
-It is important to note that the `LocationPicker module` is not used directly in the `Weather module`. It is the role of the webpart to bind the `LocationPicker module` result to the `Weather module` and to ensure `LocationPicker` is not dependent on `Weather` and vice versa. Modules should not reference each other.
+It is important to note that the `LocationPicker module` is not directly used in the `Weather module`. `Weather module` accepts a view as argument, it doesn't matter where the view comes from. It is the role of the webpart to bind the `LocationPicker module` location view result to the `Weather module` and to ensure that `LocationPicker` is not dependent on `Weather` and vice versa. Modules should not reference each other.
 
 ### Modules
 
-The last part of our architecture is the modules.
+The last part of our architecture is the modules. Let's take a look at the `Weather module`:
+
+```
+module Weather =
+    
+    type private Forecast = {
+        Title: string
+        Description: string
+        ImageUrl: string
+        Temperature: decimal
+        TemparatureMinMax: decimal * decimal
+    }
+
+    module private Server =
+        
+        type WeatherApi = 
+            JsonProvider<""" {"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":500,"main":"Rain","description":"light rain","icon":"10d"},{"id":311,"main":"Drizzle","description":"rain and drizzle","icon":"09d"}],"base":"cmc stations","main":{"temp":282.66,"pressure":999,"humidity":87,"temp_min":281.75,"temp_max":283.15},"wind":{"speed":5.7,"deg":140},"rain":{"1h":0.35},"clouds":{"all":75},"dt":1451724700,"sys":{"type":1,"id":5091,"message":0.0043,"country":"GB","sunrise":1451721965,"sunset":1451750585},"id":2643743,"name":"London","cod":200} """>
+
+        let apiKey =
+            Arche.Common.Config.value.OpenWeather.ApiKey
+        
+        [<Rpc>]
+        let get city =
+            async {
+                let! weather = WeatherApi.AsyncLoad(sprintf "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s" city apiKey)
+                return weather.Weather 
+                       |> Array.tryHead
+                       |> Option.map (fun head -> 
+                            { Title = sprintf "%s, %s" weather.Name weather.Sys.Country
+                              Description = head.Main
+                              ImageUrl = sprintf "http://openweathermap.org/img/w/%s.png" head.Icon
+                              Temperature = weather.Main.Temp
+                              TemparatureMinMax = weather.Main.TempMin, weather.Main.TempMax })
+            }
+
+    [<JavaScript>]
+    module Client =
+        open WebSharper.UI.Next.Html
+        open WebSharper.UI.Next.Client
+        
+        let page city =
+            city
+            |> View.MapAsync Server.get
+            |> View.Map (function
+                | Some forecast ->
+                    let (min, max) = 
+                        forecast.TemparatureMinMax
+
+                    let temperature txt =
+                        span [ text txt; spanAttr [] [ text "°C" ] ]
+                    
+                    div [ imgAttr [ attr.src forecast.ImageUrl ] []
+                          divAttr [ attr.style "" ] 
+                                  [ temperature (sprintf "%i" <| int forecast.Temperature)
+                                    divAttr [] [ text forecast.Title ] ]
+                          pAttr [] [ temperature (sprintf "Min: %i" <| int min)
+                                     text " - "
+                                     temperature (sprintf "Max: %i" <| int max) ] ]
+                | None -> p [ text "No forecrast" ])
+            |> Doc.EmbedView
+```
