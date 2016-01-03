@@ -247,4 +247,4 @@ It is important to note that the `LocationPicker module` is not used directly in
 
 ### Modules
 
-
+The last part of our architecture is the modules.
