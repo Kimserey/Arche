@@ -16,8 +16,7 @@ So let's get started!
 
 ## Overall architecture overview
 
-The ideas behind this architecture comes from a powerful concepts:
-- Modular architecture - inspired by [Addy Osmani blog post](https://addyosmani.com/largescalejavascript/)
+The ideas behind this architecture was highly inspired by [Addy Osmani blog post](https://addyosmani.com/largescalejavascript/) on Patterns for large application and more precisely on modular architecture.
 
 The idea of a modular achitecture is that the application is composed by small pieces (modules) which are completely independent from each other. One lives without knowing the others and none of the modules have dependencies on other modules. The patterns explained in the blog post of Addy Osmani goes much deeper and defines many other patterns but to me the most crucial understanding is that we should strive to manage dependencies. Coupling is the worst enemy of large applications. It stops us from changing or removing pieces of the application and brings [FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt) in our daily development. I've been there.. and it's most certainly not fun.
 
