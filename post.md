@@ -325,4 +325,5 @@ Modules are the last element of the architecture. They must be completely indepe
 
 Today, we have seen one way of structuring a web app which reduces coupling between elements and allows rapid changes and adding new features easily. We have built a shell which doesn't need to be touched anymore and automatically add links to its menu based on the pages that are registered. Finally this structure also remove the confusion of where to place code and defined a clear way for components to interact with each other. I hope that this post will help you in your developement and I hope you enjoyed reading this post as much I enjoyed writing it. As usual, if you have any questions, you can hit me on twitter [@Kimserey_Lam](https://twitter.com/Kimserey_Lam). Thanks for reading!
 
-[The full code is available on github.](https://github.com/Kimserey/Arche)
+- [You can play with the web app here.](http://arche1.azurewebsites.net/)
+- [The source code is available on github.](https://github.com/Kimserey/Arche)
