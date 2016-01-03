@@ -2,7 +2,7 @@
 
 # Architecture for web app built in F# and WebSharper
 
-__F# + WebSharper is an awesome combination to build web application__. The only problem is that if you want to build a webapp larger than a todo list, it's hard to find examples to use as reference. It is even harder to find tutorials which touch on overall design and answer questions like: 
+__F# + WebSharper is an awesome combination to build web application__. The only problem is that if you want to build a webapp larger than a to-do list, it's hard to find examples to use as references. It is even harder to find tutorials that touches on overall design and answer questions like: 
 - _How should I start?_
 - _Where should I put the code?_
 - _How should I separate the code, put it in different files, with different namespaces or modules?_
@@ -10,23 +10,23 @@ __F# + WebSharper is an awesome combination to build web application__. The only
 
 Asking these questions at the beginning of the development is important. All these questions if answered correctly will lead to a good structure for the application. Answered incorrectly, or not even asked, will most likely lead to unmaintainable/fragile/rigid (or whatever bad adjectives for coding) code.
 
-Over the last few months I have been working on a web app built in F# with WebSharper and came out with an architecture which cares for extensions and decoupling. Today I decided to share this structure and hope that it will give you ideas and help you in your development. 
+Over the last few months, I have been working on a web app built in F# with WebSharper and came out with an architecture that caters to extensions and decoupling. Today, I will share this structure and hope that it will give you ideas and help you in your development. 
 
 So let's get started!
 
 ## Overall architecture overview
 
-The ideas behind this architecture come a powerful concepts:
+The ideas behind this architecture comes from a powerful concepts:
 - Modular architecture - inspired by [Addy Osmani blog post](https://addyosmani.com/largescalejavascript/)
 
-The idea of a modular achitecture is that the application is composed by small pieces (modules) which are completely independent of each others. One lives without knowing the others and none of the modules have dependencies on other modules. The patterns explained in the blog post of Addy Osmani goes much deeper and defines many other patterns but to me the most crutial understanding is that we should strive to manage dependencies. Coupling is the worse enemy of large application. It stops us from changing or removing pieces of the application and brings [FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt) in our daily development. I've been there.. and it's not fun.
+The idea of a modular achitecture is that the application is composed by small pieces (modules) which are completely independent from each other. One lives without knowing the others and none of the modules have dependencies on other modules. The patterns explained in the blog post of Addy Osmani goes much deeper and defines many other patterns but to me the most crucial understanding is that we should strive to manage dependencies. Coupling is the worst enemy of large applications. It stops us from changing or removing pieces of the application and brings [FUD](https://en.wikipedia.org/wiki/Fear,_uncertainty_and_doubt) in our daily development. I've been there.. and it's most certainly not fun.
 
 Here's how the architecture looks like:
 
 ![architecture](http://4.bp.blogspot.com/-hxGVE2ZLgLk/VoipqDWakyI/AAAAAAAAADI/F_5eJWjPR0o/s1600/architecture_2.png)
 
-Two important points to notice from the diagram:
-- We can see clear boudaries represented by the colours
+Two important points to note from the diagram:
+- We can see clear boundaries represented by the colours
 - The dependencies only flow in one direction, top to bottom
 
 ### Clear boundaries
@@ -34,18 +34,18 @@ Two important points to notice from the diagram:
 From the diagram we can see five clear boundaries where we can place our codes:
 - __Core lib / common__ - Contains common types and services like auth.
 - __Shell__ - Combines pages, provides nav menu to the pages. The shell will do the necessary to gather all the pages, construct a menu based on the pages options and link the menu buttons to the correct pages.
-- __Page__ - Combines webparts to build a page content. Pages specifie how they should be displayed (fullpage or with nav) and from where they can be accessed (from nav or just via direct url). A page can reference many webparts.
+- __Page__ - Combines webparts to build a page content. Pages specify how they should be displayed (fullpage or with nav) and from where they can be accessed (from nav or just via direct url). A page can reference many webparts.
 - __Webpart__ - Combines modules in a reusable piece of the web app. Webparts can be considered as an assemble of modules which serve a common purpose. Therefore webparts can reference multiple modules.
 - __Module__ - Smallest piece of the web application.
 
 ### One way flow of dependencies
 
-Dependencies are flowing downward only. Elements don't reference other elements from the same level.
+Dependencies flow downward only. Elements don't reference other elements from the same level.
 - Pages do not need other pages
 - Webparts do not need other webparts
-- Module do not need other modules
+- Modules do not need other modules
 
-Following this rule will allow us to be very flexible. We will be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issue as they are independent of each other.
+Following this rule will allow us to be very flexible. We will then be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issues as they are independent from each other.
 
 Now that we understand the architecture, let's see how we can apply it in F# with WebSharper.
 
@@ -58,17 +58,17 @@ To see how we can apply this architecture, we will build a sample app which cont
 
 ![preview](http://3.bp.blogspot.com/-EZCKWQsSnJU/Voi6a1yEi-I/AAAAAAAAAD0/M9vaJuCT7z8/s640/arche.gif)
 
-If you aren't familiar with WebSharper.UI.Next html notation, I have wrote [a previous blog post where I give some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
+If you aren't familiar with WebSharper.UI.Next html notation, I have wrote [a previous blog post where I gave some explanations about the UI.Next.Html notation and how to use the reactive model Var/View of UI.Next](http://kimsereyblog.blogspot.sg/2015/08/single-page-app-with-websharper-uinext.html). 
 
 ### Building blocks
 
-We start first by creating empty containers for our future code:
+First, we start by creating empty containers for our future code:
 
 ![files](http://4.bp.blogspot.com/-d4Ip0tx-WAE/Voi0h7LGkuI/AAAAAAAAADg/MWH1EJJ0tFw/s1600/Screen%2BShot%2B2016-01-03%2Bat%2B13.32.30.png)
 
-Following the architecture diagram, we placed the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
+Following the architecture diagram, we place the __common code__ in its own library. The Site project contains the __Shell / Page / Webpart / Module__ categories. 
 
-F# allows us to ensure the references are one way only as only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
+F# allows us to ensure the references are one way only. Only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
 
 ### Common - Domain
 
