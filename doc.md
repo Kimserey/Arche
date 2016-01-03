@@ -243,4 +243,4 @@ module Weather =
                               div [ locationDoc ] ]
 ```
 
-`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can look at it in the 
+`panel` is a helper defined in the `Bootstrap module` in `Common`. I won't explain it but you can find it [in the code](https://github.com/Kimserey/Arche/blob/master/Arche.Common/Bootstrap.fs)
