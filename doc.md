@@ -70,9 +70,10 @@ Following the diagram, we placed the __common code__ in its own library. The Sit
 
 F# allows us to ensure the references are one way only as only bottom files can reference top files, your functions must be defined first before you can use it. Therefore if we keep the modules at the top level, it will indirectly make the modules the code with the least dependencies in the project.
 
-the Page type which contains all the necessary information to diaplay a page.
+Next step we need to define what a Page is, how it should be displayed and from where can it be accessed.
 
-[code]
+```
+```
 
 We then write the code to compose the shell and the navbar.
 The links in the navbar will be constructed based on what is defined in the pages. If the page is accessible through nav, it will create a button link in the nav. Then the display option is used to define whether the page will be full screen or embeded with nav at the top.
