@@ -38,7 +38,7 @@ Two important points to notice from the diagram:
 From the diagram we can see five clear boundaries where we can place our codes:
 - __Core lib / common__ - Contains common types and services like auth.
 - __Shell__ - Combines pages, provides nav menu to the pages. The shell will do the necessary to gather all the pages, construct a menu based on the pages options and link the menu buttons to the correct pages.
-- __Page__ - Combines webparts to build a page content. Pages define there own security rules, specifies how they should be displayed (fullpage or with nav) and from where they can be accessed (from nav or just via direct url). A page can reference many webparts.
+- __Page__ - Combines webparts to build a page content. Pages specifie how they should be displayed (fullpage or with nav) and from where they can be accessed (from nav or just via direct url). A page can reference many webparts.
 - __Webpart__ - Combines modules in a reusable piece of the web application. Webparts can be considered as an assemble of modules which serve a common purpose. Therefore webparts can reference multiple modules.
 - __Module__ - Smallest piece of the web application.
 
