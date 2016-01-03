@@ -51,11 +51,14 @@ Dependencies are flowing downward only. Elements don't reference other elements 
 
 Following this rule will allow us to be very flexible. We will be able to easily remove or add pages. We can also substitute a module for another in a webpart or substitute a webpart for another in a page without issue as they are independent of each other.
 
-Let's see how we can apply this architecture in F# with WebSharper.
+Now that we understand the architecture, let's see how we can apply it in F# with WebSharper.
 
-F# with WebSharper
+## A simple app with F# and WebSharper
 
-To see how we can apply this architecture, we will build a sample app which cobtains a home page and page dedicated to showing the weather.
+To see how we can apply this architecture, we will build a sample app which contains 3 pages:
+- a home page
+- a page to show the weather
+- a page to show places on a map.
 
 We start first by creating empty containers for our future code:
 
